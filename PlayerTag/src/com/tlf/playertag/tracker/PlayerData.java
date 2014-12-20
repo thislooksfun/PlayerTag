@@ -3,6 +3,7 @@ package com.tlf.playertag.tracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.scoreboard.ScorePlayerTeam;
+import net.minecraft.world.World;
 
 import com.tlf.playertag.util.ColorHelper;
 
@@ -25,10 +26,15 @@ public class PlayerData
 		this.overrideTeamColor = overrideTeamColor;
 		this.servers = servers;
 		
-		for (Object player : Minecraft.getMinecraft().theWorld.playerEntities)
+		World w = Minecraft.getMinecraft().theWorld;
+		if (w != null)
 		{
-			if (((EntityPlayer)player).getCommandSenderName().equalsIgnoreCase(this.username)) {
-				this.username = ((EntityPlayer)player).getCommandSenderName();
+			for (Object player : w.playerEntities)
+			{
+				if (((EntityPlayer)player).getCommandSenderName().equalsIgnoreCase(this.username))
+				{
+					this.username = ((EntityPlayer)player).getCommandSenderName();
+				}
 			}
 		}
 	}

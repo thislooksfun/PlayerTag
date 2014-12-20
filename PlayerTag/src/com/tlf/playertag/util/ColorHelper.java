@@ -14,6 +14,10 @@ public class ColorHelper
 	{
 		return s.replace("&", "\u00a7");
 	}
+	public static String unformat(String s)
+	{
+		return s.replace("\u00a7", "&");
+	}
 	
 	public static String removeCodes(String s)
 	{

@@ -4,6 +4,7 @@ import net.minecraft.client.settings.KeyBinding;
 
 import com.tlf.playertag.client.gui.GuiManager;
 import com.tlf.playertag.event.EventHandler;
+import com.tlf.playertag.tracker.PlayerDataManager;
 import com.tlf.playertag.util.LogHelper;
 import com.tlf.playertag.util.Settings;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -55,6 +56,7 @@ public class PlayerTag
 		EventHandler ev = new EventHandler();
 		FMLCommonHandler.instance().bus().register(ev);
 		MinecraftForge.EVENT_BUS.register(ev);
+		PlayerDataManager.read();
 	}
 	
 	@Mod.EventHandler
