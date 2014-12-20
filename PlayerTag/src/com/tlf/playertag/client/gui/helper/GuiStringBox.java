@@ -6,6 +6,7 @@ import com.tlf.playertag.util.Colors;
 /**
  * @author thislooksfun
  */
+@SuppressWarnings("WeakerAccess")
 public class GuiStringBox extends GuiSubBox
 {
 	protected int defaultColor;
@@ -27,6 +28,7 @@ public class GuiStringBox extends GuiSubBox
 		super(width, height, parent);
 	}
 	
+	@SuppressWarnings("UnusedDeclaration")
 	public GuiStringBox setTextColor(int color)
 	{
 		this.textColor = color;
@@ -39,6 +41,7 @@ public class GuiStringBox extends GuiSubBox
 		return this;
 	}
 	
+	@SuppressWarnings("SameParameterValue")
 	public GuiStringBox setCentered(boolean b)
 	{
 		this.centered = b;
@@ -57,9 +60,9 @@ public class GuiStringBox extends GuiSubBox
 		this.color = (this.selected ? this.selectedColor : this.defaultColor);
 		super.render();
 		if (this.centered) {
-			this.drawCenteredString(ColorHelper.limitToLengthExcludingCodes(this.string, this.width - 15), this.width / 2, this.stringTop, Colors.TEXT_COLOR);
+			this.drawCenteredString(ColorHelper.limitToLengthExcludingCodes(this.string, this.width - 15), this.width / 2, this.stringTop, this.textColor);
 		} else {
-			this.drawString(ColorHelper.limitToLengthExcludingCodes(this.string, this.width - 15), 6, this.stringTop, Colors.TEXT_COLOR);
+			this.drawString(ColorHelper.limitToLengthExcludingCodes(this.string, this.width - 15), 6, this.stringTop, this.textColor);
 		}
 	}
 	

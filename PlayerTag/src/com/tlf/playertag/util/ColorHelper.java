@@ -19,6 +19,7 @@ public class ColorHelper
 		return s.replace("\u00a7", "&");
 	}
 	
+	@SuppressWarnings("UnusedDeclaration")
 	public static String removeCodes(String s)
 	{
 		return s.replaceAll("&.", "");
@@ -36,7 +37,7 @@ public class ColorHelper
 		return end < s.length() ? getRenderedSubstring(s, end)+"..." : s;
 	}
 	
-	public static String getRenderedSubstring(String s, int end)
+	private static String getRenderedSubstring(String s, int end)
 	{
 		Set<Integer> poses = getCodePositions(s);
 		

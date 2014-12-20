@@ -7,10 +7,12 @@ import com.tlf.playertag.util.Colors;
 /**
  * @author thislooksfun
  */
+@SuppressWarnings("CanBeFinal")
 public class GuiTagCheckbox extends GuiSubBox
 {
-	public boolean checked = false;
+	@SuppressWarnings("WeakerAccess")
 	public boolean disabled = false;
+	public boolean checked = false;
 	
 	private int outerColor = Colors.rgba(160, 160, 160, 255);
 	private int innerColor = Colors.toRgba(Colors.BLACK);

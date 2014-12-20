@@ -11,6 +11,7 @@ import com.tlf.playertag.util.Colors;
 /**
  * @author thislooksfun
  */
+@SuppressWarnings("WeakerAccess")
 public class GuiCurrent extends GuiScreen
 {
 	private final GuiColorBox main = new GuiColorBox(350, 235).setCenteredAt(0.5f, 0.5f).setColor(Colors.rgba(20, 20, 20, 230));

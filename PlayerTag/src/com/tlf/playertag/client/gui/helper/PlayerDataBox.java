@@ -8,8 +8,9 @@ import com.tlf.playertag.util.ColorHelper;
  */
 public class PlayerDataBox extends GuiStringBox
 {
-	private PlayerData data;
+	private final PlayerData data;
 	
+	@SuppressWarnings("SameParameterValue")
 	public PlayerDataBox(int width, int height, GuiColorBox parent, PlayerData data)
 	{
 		super(width, height, parent);

@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * @author thislooksfun
  */
+@SuppressWarnings("UnusedDeclaration")
 public class LogHelper
 {
 	private static Logger logger = FMLCommonHandler.instance().getFMLLogger();
@@ -17,6 +18,7 @@ public class LogHelper
 	}
 	
 	/** Logs a message at the specified level */
+	@SuppressWarnings("WeakerAccess")
 	public static void log(Level level, Object msg)
 	{
 		logger.log(level, msg);

@@ -23,10 +23,11 @@ import org.apache.commons.io.FileUtils;
 /**
  * @author thislooksfun
  */
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class PlayerDataManager
 {
 	private static File file;
-	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	//All the PlayerData instances
 	private static final SortedMap<String, PlayerData> PLAYER_DATA = new TreeMap<String, PlayerData>(new Comparator<String>()
 	{
@@ -55,6 +56,7 @@ public class PlayerDataManager
 		save();
 	}
 	
+	@SuppressWarnings("WeakerAccess")
 	public static void forceNameRefresh(String username)
 	{
 		EntityPlayer p = Minecraft.getMinecraft().theWorld.getPlayerEntityByName(username);
@@ -79,6 +81,7 @@ public class PlayerDataManager
 		return PLAYER_DATA.get(username);
 	}
 	
+	@SuppressWarnings("WeakerAccess")
 	public static void save()
 	{
 		if (file == null)

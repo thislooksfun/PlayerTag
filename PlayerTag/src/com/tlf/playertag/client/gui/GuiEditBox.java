@@ -27,7 +27,7 @@ public class GuiEditBox extends GuiSubBox
 	private final GuiTextField suffix;
 	private final GuiTagCheckbox overrideTeamColor;
 	
-	public boolean focused = false;
+	private boolean focused = false;
 	private boolean shouldFocusName = false;
 	
 	private PlayerData prevData;
@@ -35,6 +35,7 @@ public class GuiEditBox extends GuiSubBox
 	
 	private static final String playerName = Minecraft.getMinecraft().thePlayer.getCommandSenderName();
 	
+	@SuppressWarnings("SameParameterValue")
 	public GuiEditBox(int width, int height, GuiColorBox parent, GuiCurrent main)
 	{
 		super(width, height, parent);

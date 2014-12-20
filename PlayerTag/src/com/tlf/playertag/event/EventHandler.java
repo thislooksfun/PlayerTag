@@ -19,6 +19,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 /**
  * @author thislooksfun
  */
+@SuppressWarnings({"UnusedParameters", "UnusedDeclaration"})
 public class EventHandler
 {
 	@SubscribeEvent

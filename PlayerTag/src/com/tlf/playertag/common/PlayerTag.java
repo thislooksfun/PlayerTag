@@ -21,6 +21,7 @@ import org.lwjgl.input.Keyboard;
 /**
  * @author thislooksfun
  */
+@SuppressWarnings({"UnusedParameters", "UnusedDeclaration"})
 @Mod(name = Settings.NAME, modid = Settings.MODID, version = Settings.VERSION)
 public class PlayerTag
 {

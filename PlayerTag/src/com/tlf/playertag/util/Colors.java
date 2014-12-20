@@ -23,14 +23,17 @@ public class Colors
 		return (r << 16) | (g << 8) | b;
 	}
 	
+	@SuppressWarnings("SameParameterValue")
 	public static int toRgba(int i)
 	{
 		return toRgba(i, 255);
 	}
+	@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 	public static int toRgba(int i, int alpha)
 	{
 		return (alpha << 24) | i;
 	}
+	@SuppressWarnings("UnusedDeclaration")
 	public static int toRgb(int i)
 	{
 		return i & ~(255 << 24);

@@ -10,12 +10,14 @@ import com.tlf.playertag.util.ColorHelper;
 /**
  * @author thislooksfun
  */
+@SuppressWarnings("UnusedParameters")
 public class PlayerData
 {
 	public String username;
 	public String prefix;
 	public String suffix;
 	public boolean overrideTeamColor;
+	@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 	public String[] servers;
 	
 	public PlayerData(String username, String prefix, String suffix, boolean overrideTeamColor, String[] servers)
@@ -39,12 +41,14 @@ public class PlayerData
 		}
 	}
 	
+	@SuppressWarnings("WeakerAccess")
 	public String overrideWith()
 	{
 		return this.overrideTeamColor ? ("\u00a7r" + ColorHelper.getEffectiveEndCodes(this.prefix)) : "";
 	}
 	
 	@Override
+	@SuppressWarnings({"CloneDoesntDeclareCloneNotSupportedException", "CloneDoesntCallSuperClone"})
 	public PlayerData clone()
 	{
 		return new PlayerData(this.username, this.prefix, this.suffix, this.overrideTeamColor, this.servers);

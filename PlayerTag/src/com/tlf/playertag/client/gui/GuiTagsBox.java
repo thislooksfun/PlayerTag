@@ -15,12 +15,12 @@ public class GuiTagsBox extends GuiSubBox
 {
 	private final GuiCurrent main;
 	
-	private GuiSubBox bottomBar;
-	private GuiSubBox tagBounds;
-	private GuiTagButton prevPage;
-	private GuiTagButton nextPage;
-	private GuiTagButton remove;
-	private GuiTagButton add;
+	private final GuiSubBox bottomBar;
+	private final GuiTagButton prevPage;
+	private final GuiSubBox tagBounds;
+	private final GuiTagButton nextPage;
+	private final GuiTagButton remove;
+	private final GuiTagButton add;
 	
 	private int page = 0;
 	private int maxPage;
@@ -29,7 +29,7 @@ public class GuiTagsBox extends GuiSubBox
 	
 	private static final int itemsPerPage = 11;
 	
-	
+	@SuppressWarnings("SameParameterValue")
 	public GuiTagsBox(int width, int height, GuiColorBox parent, GuiCurrent main)
 	{
 		super(width, height, parent);

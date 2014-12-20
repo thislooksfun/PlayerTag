@@ -12,6 +12,7 @@ public class GuiTagButton extends GuiSubBox
 {
 	public boolean disabled = false;
 	
+	@SuppressWarnings("CanBeFinal")
 	private String text;
 	
 	private int disabledColor;

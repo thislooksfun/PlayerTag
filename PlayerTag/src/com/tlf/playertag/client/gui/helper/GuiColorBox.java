@@ -5,6 +5,7 @@ import net.minecraft.client.gui.Gui;
 /**
  * @author thislooksfun
  */
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiColorBox extends Gui
 {
 	protected float centerX;
@@ -24,6 +25,7 @@ public class GuiColorBox extends Gui
 		this.height = height;
 	}
 	
+	@SuppressWarnings("SameParameterValue")
 	public GuiColorBox setCenteredAt(float x, float y)
 	{
 		this.centerX = x;

@@ -12,6 +12,7 @@ import com.tlf.playertag.util.Colors;
 /**
  * @author thislooksfun
  */
+@SuppressWarnings("CanBeFinal")
 public class GuiSuggestionsBox extends GuiSubBox
 {
 	private int listStart = 0;
@@ -29,7 +30,7 @@ public class GuiSuggestionsBox extends GuiSubBox
 	private final GuiStringBox up;
 	private final GuiStringBox down;
 	
-	public GuiSuggestionsBox(int width, int maxItems, GuiColorBox parent, GuiTextField monitoring)
+	public GuiSuggestionsBox(int width, @SuppressWarnings("SameParameterValue") int maxItems, GuiColorBox parent, GuiTextField monitoring)
 	{
 		super(width, maxItems * 11, parent);
 		this.maxItems = (maxItems < 3 ? 3 : maxItems);
@@ -57,6 +58,7 @@ public class GuiSuggestionsBox extends GuiSubBox
 		this.down.updateScreenPos();
 	}
 	
+	@SuppressWarnings("UnusedParameters") //TODO remove after making clicking work
 	public void onClick(int mouseX, int mouseY, int button)
 	{
 		//TODO Detect if an element was clicked, and set the text field accordingly
@@ -64,8 +66,10 @@ public class GuiSuggestionsBox extends GuiSubBox
 	}
 	
 	@Override
+	@SuppressWarnings("EmptyMethod") //TODO remove after making clicking work
 	public boolean wasClicked(int mouseX, int mouseY, int button)
 	{
+		//TODO detect element clicked
 		return super.wasClicked(mouseX, mouseY, button);
 	}
 	

@@ -8,6 +8,7 @@ import net.minecraft.client.gui.FontRenderer;
  */
 public class GuiSubBox extends GuiColorBox
 {
+	@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 	protected GuiColorBox parent;
 	
 	private int topOffset = 0;
@@ -58,11 +59,12 @@ public class GuiSubBox extends GuiColorBox
 	{
 		this.drawString(this.fontRenderer, s, this.left+left, this.top+top, color);
 	}
-	protected void drawCenteredString(String s, int left, int top, int color)
+	protected void drawCenteredString(String s, int left, int top, @SuppressWarnings("SameParameterValue") int color)
 	{
 		this.drawCenteredString(this.fontRenderer, s, this.left+left, this.top+top, color);
 	}
 	
+	@SuppressWarnings("WeakerAccess")
 	public void updateScreenPos()
 	{
 		int toff = (this.topBottom ? this.topOffset : (this.parent.height - this.bottomOffset - this.height));
