@@ -37,7 +37,7 @@ public class EventHandler
 	{
 		if (PlayerDataManager.containsKey(event.username))
 		{
-			event.displayname = PlayerDataManager.get(event.username).toString();
+			event.displayname = PlayerDataManager.get(event.username).toString(event.username);
 		}
 	}
 	

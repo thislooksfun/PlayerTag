@@ -64,7 +64,10 @@ public class GuiTagsBox extends GuiSubBox
 			PlayerData pd = datas[i];
 			boxes[i] = (PlayerDataBox)(new PlayerDataBox(this.width - 10, 12, this, pd.clone()).setDefaultColor(Colors.rgba(30, 30, 30, 200)).setSelectedColor(Colors.rgba(10, 10, 10, 200)).setLeftOffset(5).setTopOffset(5 + (16 * (i % itemsPerPage))));
 			boxes[i].updateScreenPos(0, 0);
-			boxes[i].selected = pd.username.equals(match);
+			if (pd.username.equals(match)) {
+				boxes[i].selected = true;
+				this.remove.disabled = false;
+			}
 		}
 		
 		this.maxPage = (int)Math.floor(this.boxes.length / itemsPerPage);

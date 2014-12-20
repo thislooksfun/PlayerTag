@@ -19,11 +19,18 @@ public class PlayerData
 	
 	public PlayerData(String username, String prefix, String suffix, boolean overrideTeamColor, String[] servers)
 	{
-		this.username = username;
+		this.username = username.trim();
 		this.prefix = prefix;
 		this.suffix = suffix;
 		this.overrideTeamColor = overrideTeamColor;
 		this.servers = servers;
+		
+		for (Object player : Minecraft.getMinecraft().theWorld.playerEntities)
+		{
+			if (((EntityPlayer)player).getCommandSenderName().equalsIgnoreCase(this.username)) {
+				this.username = ((EntityPlayer)player).getCommandSenderName();
+			}
+		}
 	}
 	
 	public String overrideWith()
@@ -37,19 +44,24 @@ public class PlayerData
 		return new PlayerData(this.username, this.prefix, this.suffix, this.overrideTeamColor, this.servers);
 	}
 	
-	@Override
-	public String toString()
+	public String toString(String username)
 	{
-		this.username = this.username.trim();
+		username = username.trim();
 		
-		EntityPlayer player = Minecraft.getMinecraft().theWorld.getPlayerEntityByName(this.username);
+		EntityPlayer player = Minecraft.getMinecraft().theWorld.getPlayerEntityByName(username);
 		
-		String user = this.overrideWith() + this.username;
+		String user = this.overrideWith() + username;
 		if (player != null && player.getTeam() != null)
 		{
 			user = ColorHelper.getEffectiveEndCodes(((ScorePlayerTeam)player.getTeam()).getColorPrefix()) + user;
 		}
 		return ColorHelper.format("&r" + prefix + user + suffix);
+	}
+	
+	@Override
+	public String toString()
+	{
+		return this.toString(this.username);
 	}
 	
 	@Override

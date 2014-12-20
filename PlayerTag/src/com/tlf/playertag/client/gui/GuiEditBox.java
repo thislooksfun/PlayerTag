@@ -3,10 +3,7 @@ package com.tlf.playertag.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiTextField;
 
-import com.tlf.playertag.client.gui.helper.GuiColorBox;
-import com.tlf.playertag.client.gui.helper.GuiSubBox;
-import com.tlf.playertag.client.gui.helper.GuiTagButton;
-import com.tlf.playertag.client.gui.helper.GuiTagCheckbox;
+import com.tlf.playertag.client.gui.helper.*;
 import com.tlf.playertag.tracker.PlayerData;
 import com.tlf.playertag.tracker.PlayerDataManager;
 import com.tlf.playertag.util.ColorHelper;
@@ -25,11 +22,13 @@ public class GuiEditBox extends GuiSubBox
 	private final GuiTagButton cancel;
 	
 	private final GuiTextField name;
+	private final GuiSuggestionsBox nameSuggest;
 	private final GuiTextField prefix;
 	private final GuiTextField suffix;
 	private final GuiTagCheckbox overrideTeamColor;
 	
 	public boolean focused = false;
+	private boolean shouldFocusName = false;
 	
 	private PlayerData prevData;
 	private PlayerData data;
@@ -50,12 +49,13 @@ public class GuiEditBox extends GuiSubBox
 		
 		this.name = new GuiTextField(this.fontRenderer, 0, 0, 100, 14);
 		this.name.setMaxStringLength(50);
+		this.nameSuggest = new GuiSuggestionsBox(this.name.width, 5, this, this.name);
 		
 		this.prefix = new GuiTextField(this.fontRenderer, 0, 0, 100, 14);
-		this.prefix.setMaxStringLength(20);
+		this.prefix.setMaxStringLength(50);
 		
 		this.suffix = new GuiTextField(this.fontRenderer, 0, 0, 100, 14);
-		this.suffix.setMaxStringLength(15);
+		this.suffix.setMaxStringLength(50);
 		
 		this.overrideTeamColor = (GuiTagCheckbox)(new GuiTagCheckbox(this).setTopOffset(134).setLeftOffset(24));
 	}
@@ -69,6 +69,12 @@ public class GuiEditBox extends GuiSubBox
 			this.name.setText("");
 			this.prefix.setText("");
 			this.suffix.setText("");
+			
+			this.name.setFocused(false);
+			this.nameSuggest.updateItems();
+			this.prefix.setFocused(false);
+			this.suffix.setFocused(false);
+			
 			this.overrideTeamColor.checked = false;
 			
 			this.focused = false;
@@ -82,6 +88,8 @@ public class GuiEditBox extends GuiSubBox
 		this.prefix.setText(data.prefix);
 		this.suffix.setText(data.suffix);
 		this.overrideTeamColor.checked = data.overrideTeamColor;
+		
+		this.shouldFocusName = true;
 		
 		this.focused = true;
 	}
@@ -111,12 +119,23 @@ public class GuiEditBox extends GuiSubBox
 		
 		this.suffix.xPosition = (this.left + ((this.width - this.suffix.width) / 2));
 		this.suffix.yPosition = (this.top + 100);
+		
+		this.nameSuggest.updateScreenPos(screenWidth, screenHeight);
 	}
 	
 	@Override
 	public void render()
 	{
 		super.render();
+		
+		if (this.shouldFocusName)
+		{
+			this.name.setFocused(true);
+			this.nameSuggest.updateItems();
+			this.prefix.setFocused(false);
+			this.suffix.setFocused(false);
+			this.shouldFocusName = false;
+		}
 		
 		this.drawCenteredString("Edit tag", this.width / 2, 5, Colors.TEXT_COLOR);
 		this.bottomBar.render();
@@ -132,6 +151,8 @@ public class GuiEditBox extends GuiSubBox
 		this.overrideTeamColor.render();
 		this.drawString("Preview:", 5, 157, Colors.TEXT_COLOR);
 		this.drawString(ColorHelper.limitToLengthExcludingCodes(this.data == null ? "" : this.data.toString(), this.width-10), 5, 168, Colors.TEXT_COLOR);
+		
+		this.nameSuggest.render();
 		
 		if (!this.focused)
 		{
@@ -173,14 +194,16 @@ public class GuiEditBox extends GuiSubBox
 						this.suffix.setFocused(true);
 						break;
 				}
+				this.nameSuggest.updateItems();
 			} else
 			{
-				if (keycode != 57)
+				if (keycode != 200 && keycode != 208)
 				{
-					this.name.textboxKeyTyped(ch, keycode);
+					this.prefix.textboxKeyTyped(ch, keycode);
+					this.suffix.textboxKeyTyped(ch, keycode);
 				}
-				this.prefix.textboxKeyTyped(ch, keycode);
-				this.suffix.textboxKeyTyped(ch, keycode);
+				
+				this.nameSuggest.keyPress(ch, keycode);
 				
 				this.data.username = this.name.getText();
 				this.data.prefix = this.prefix.getText();
@@ -199,6 +222,8 @@ public class GuiEditBox extends GuiSubBox
 			this.prefix.mouseClicked(x, y, button);
 			this.suffix.mouseClicked(x, y, button);
 			this.overrideTeamColor.onClick(x, y, button);
+			
+			this.nameSuggest.onClick(x, y, button);
 			
 			this.data.overrideTeamColor = this.overrideTeamColor.checked;
 			this.save.disabled = (this.data.username.equals("") || this.data.equals(this.prevData) || this.data.username.equals(playerName));
