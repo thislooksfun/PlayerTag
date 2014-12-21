@@ -16,8 +16,8 @@ public class GuiTagsBox extends GuiSubBox
 	private final GuiCurrent main;
 	
 	private final GuiSubBox bottomBar;
-	private final GuiTagButton prevPage;
 	private final GuiSubBox tagBounds;
+	private final GuiTagButton prevPage;
 	private final GuiTagButton nextPage;
 	private final GuiTagButton remove;
 	private final GuiTagButton add;

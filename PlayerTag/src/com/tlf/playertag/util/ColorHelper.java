@@ -27,6 +27,8 @@ public class ColorHelper
 	
 	public static String limitToLengthExcludingCodes(String s, int length)
 	{
+		length = length < 0 ? 0 : length;
+		
 		s = format(s);
 		int end = s.length();
 		while (Minecraft.getMinecraft().fontRenderer.getStringWidth(s.substring(0, end)) > length)

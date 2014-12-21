@@ -219,31 +219,32 @@ public class GuiEditBox extends GuiSubBox
 	{
 		if (this.focused)
 		{
-			this.name.mouseClicked(x, y, button);
-			this.prefix.mouseClicked(x, y, button);
-			this.suffix.mouseClicked(x, y, button);
-			this.overrideTeamColor.onClick(x, y, button);
-			
-			this.nameSuggest.onClick(x, y, button);
-			
-			this.data.overrideTeamColor = this.overrideTeamColor.checked;
-			this.save.disabled = (this.data.username.equals("") || this.data.equals(this.prevData) || this.data.username.equals(playerName));
-			
-			if (this.save.wasClicked(x, y, button))
+			if (this.nameSuggest.onClick(x, y, button))
 			{
-				PlayerDataManager.remove(this.prevData.username);
-				PlayerDataManager.add(this.data.clone());
-				this.prevData = this.data.clone();
-				this.save.disabled = true;
-				this.main.update();
-			}
-			if (this.cancel.wasClicked(x, y, button))
-			{
-				this.data = this.prevData.clone();
-				this.name.setText(this.data.username);
-				this.prefix.setText(this.data.prefix);
-				this.suffix.setText(this.data.suffix);
-				this.overrideTeamColor.checked = this.data.overrideTeamColor;
+				this.name.mouseClicked(x, y, button);
+				this.prefix.mouseClicked(x, y, button);
+				this.suffix.mouseClicked(x, y, button);
+				this.overrideTeamColor.onClick(x, y, button);
+				
+				this.data.overrideTeamColor = this.overrideTeamColor.checked;
+				this.save.disabled = (this.data.username.equals("") || this.data.equals(this.prevData) || this.data.username.equals(playerName));
+				
+				if (this.save.wasClicked(x, y, button))
+				{
+					PlayerDataManager.remove(this.prevData.username);
+					PlayerDataManager.add(this.data.clone());
+					this.prevData = this.data.clone();
+					this.save.disabled = true;
+					this.main.update();
+				}
+				if (this.cancel.wasClicked(x, y, button))
+				{
+					this.data = this.prevData.clone();
+					this.name.setText(this.data.username);
+					this.prefix.setText(this.data.prefix);
+					this.suffix.setText(this.data.suffix);
+					this.overrideTeamColor.checked = this.data.overrideTeamColor;
+				}
 			}
 		}
 	}

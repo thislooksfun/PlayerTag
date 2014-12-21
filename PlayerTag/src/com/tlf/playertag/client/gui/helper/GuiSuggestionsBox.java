@@ -27,8 +27,8 @@ public class GuiSuggestionsBox extends GuiSubBox
 	private final TreeMap<String, GuiStringBox> items = new TreeMap<String, GuiStringBox>();
 	private final GuiStringBox[] rendered;
 	private final GuiTextField monitoring;
-	private final GuiStringBox up;
-	private final GuiStringBox down;
+	private final GuiTagButton up;
+	private final GuiTagButton down;
 	
 	public GuiSuggestionsBox(int width, @SuppressWarnings("SameParameterValue") int maxItems, GuiColorBox parent, GuiTextField monitoring)
 	{
@@ -40,8 +40,8 @@ public class GuiSuggestionsBox extends GuiSubBox
 		this.monitoring = monitoring;
 		this.rendered = new GuiStringBox[maxItems];
 		
-		this.up = (GuiStringBox)(new GuiStringBox(width, 8, this).setString("^").setStringTop(2).setDefaultColor(Colors.rgba(40, 40, 40, 255)).setCentered(true).setTopOffset(-8));
-		this.down = (GuiStringBox)(new GuiStringBox(width, 9, this).setString("v").setStringTop(0).setDefaultColor(Colors.rgba(40, 40, 40, 255)).setCentered(true).setBottomOffset(-9));
+		this.up = (GuiTagButton)(new GuiTagButton("^", width, 8, this).setTopOffset(-8).setColor(Colors.rgba(40, 40, 40, 255)));
+		this.down = (GuiTagButton)(new GuiTagButton("v", width, 9, this).setBottomOffset(-9).setColor(Colors.rgba(40, 40, 40, 255)));
 	}
 	
 	@Override
@@ -58,19 +58,28 @@ public class GuiSuggestionsBox extends GuiSubBox
 		this.down.updateScreenPos();
 	}
 	
-	@SuppressWarnings("UnusedParameters") //TODO remove after making clicking work
-	public void onClick(int mouseX, int mouseY, int button)
+	public boolean onClick(int x, int y, int button)
 	{
-		//TODO Detect if an element was clicked, and set the text field accordingly
-		this.updateItems();
+		if (this.wasClicked(x, y, button))
+		{
+			for (GuiStringBox box : this.rendered)
+			{
+				if (box != null && box.wasClicked(x, y, button))
+				{
+					this.monitoring.setText(box.string);
+				}
+			}
+			this.updateItems();
+			return false;
+		}
+		
+		return true;
 	}
 	
 	@Override
-	@SuppressWarnings("EmptyMethod") //TODO remove after making clicking work
 	public boolean wasClicked(int mouseX, int mouseY, int button)
 	{
-		//TODO detect element clicked
-		return super.wasClicked(mouseX, mouseY, button);
+		return this.monitoring.isFocused() && button == 0 && mouseX >= this.left && mouseY >= this.top - (this.listStart > 0 ? this.up.height : 0) && mouseX < this.left + this.width && mouseY < this.top + height + (this.listStart < this.items.size() - listMiddle ? this.down.height : 0);
 	}
 	
 	public void keyPress(char ch, int keycode)
@@ -95,7 +104,7 @@ public class GuiSuggestionsBox extends GuiSubBox
 				flag = true;
 			}
 		}
-
+		
 		
 		if (flag)
 		{
@@ -128,6 +137,12 @@ public class GuiSuggestionsBox extends GuiSubBox
 				this.items.put(p.getCommandSenderName(), (GuiStringBox)(new GuiStringBox(this.width, this).setString(p.getCommandSenderName()).setDefaultColor(this.itemColor).setSelectedColor(this.itemSelectedColor).setLeftOffset(0)));
 			}
 		}
+		
+		for (int i = 0; i < 10; i++)
+		{
+			this.items.put("" + i, (GuiStringBox)(new GuiStringBox(this.width, this).setString("" + i).setDefaultColor(this.itemColor).setSelectedColor(this.itemSelectedColor).setLeftOffset(0)));
+		}
+		
 		
 		this.updateRendered();
 	}

@@ -58,7 +58,12 @@ public class PlayerData
 	{
 		username = username.trim();
 		
-		EntityPlayer player = Minecraft.getMinecraft().theWorld.getPlayerEntityByName(username);
+		EntityPlayer player = null;
+		World w = Minecraft.getMinecraft().theWorld;
+		if (w != null)
+		{
+			player = w.getPlayerEntityByName(username);
+		}
 		
 		String user = this.overrideWith() + username;
 		if (player != null && player.getTeam() != null)

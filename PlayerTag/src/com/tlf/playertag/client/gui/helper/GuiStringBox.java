@@ -41,13 +41,14 @@ public class GuiStringBox extends GuiSubBox
 		return this;
 	}
 	
-	@SuppressWarnings("SameParameterValue")
+	@SuppressWarnings({"SameParameterValue", "UnusedDeclaration"})
 	public GuiStringBox setCentered(boolean b)
 	{
 		this.centered = b;
 		return this;
 	}
 	
+	@SuppressWarnings("UnusedDeclaration")
 	public GuiStringBox setStringTop(int top)
 	{
 		this.stringTop = top;
